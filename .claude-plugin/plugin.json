@@ -1,0 +1,7 @@
+{
+  "name": "paul-moura-skills",
+  "description": "A collection of custom Claude Code skills and agents",
+  "version": "1.0.0",
+  "agents": "./agents/",
+  "skills": "./skills/"
+}
