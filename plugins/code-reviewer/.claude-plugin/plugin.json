@@ -1,9 +1,0 @@
-{
-  "name": "code-reviewer",
-  "description": "Thorough code review for security, performance, best practices, modularity, and maintainability",
-  "version": "1.0.0",
-  "author": {
-    "name": "Paul Moura",
-    "email": "pfoJPM@paragonfilms.com"
-  }
-}

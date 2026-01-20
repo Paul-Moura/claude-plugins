@@ -1,9 +1,0 @@
-{
-  "name": "win-form-coder",
-  "description": "Creates and enhances Windows Forms applications in .NET with enterprise-grade quality",
-  "version": "1.0.0",
-  "author": {
-    "name": "Paul Moura",
-    "email": "pfoJPM@paragonfilms.com"
-  }
-}

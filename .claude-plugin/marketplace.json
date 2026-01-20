@@ -1,8 +1,8 @@
 {
-  "name": "claude-toolbox",
+  "name": "solobitcrafter-toolbox",
   "owner": {
-    "name": "Paul Moura",
-    "email": "pfoJPM@paragonfilms.com"
+    "name": "Paul-Jason Moura",
+    "email": "paul.j.moura@gmail.com"
   },
   "metadata": {
     "description": "A collection of custom Claude Code skills and agents",
@@ -16,46 +16,6 @@
 		"description": "Skills and commands for prompt engineering, MCP servers, subagents, hooks, and productivity workflows",
 		"version": "1.0.0",
 		"strict": true
-	},
-    {
-      "name": "skill-builder",
-      "source": "./skills/skill-builder",
-      "description": "Proactively identifies opportunities for new skills and guides users through creating or enhancing them",
-      "version": "0.1.0",
-      "category": "productivity",
-      "keywords": ["skills", "automation", "learning", "meta"]
-    },
-    {
-      "name": "code-reviewer",
-      "source": "./plugins/code-reviewer",
-      "description": "Thorough code review for security, performance, best practices, modularity, and maintainability",
-      "version": "1.0.0",
-      "category": "development",
-      "keywords": ["code-review", "security", "best-practices", "quality"]
-    },
-    {
-      "name": "ui-expert",
-      "source": "./plugins/ui-expert",
-      "description": "Reviews and improves UI/UX for design consistency, minimalism, and responsive design",
-      "version": "1.0.0",
-      "category": "design",
-      "keywords": ["ui", "ux", "design", "responsive", "accessibility"]
-    },
-    {
-      "name": "web-app-coder",
-      "source": "./plugins/web-app-coder",
-      "description": "Writes production-quality web application code with focus on security and performance",
-      "version": "1.0.0",
-      "category": "development",
-      "keywords": ["web", "api", "frontend", "backend", "full-stack"]
-    },
-    {
-      "name": "win-form-coder",
-      "source": "./plugins/win-form-coder",
-      "description": "Creates and enhances Windows Forms applications in .NET with enterprise-grade quality",
-      "version": "1.0.0",
-      "category": "development",
-      "keywords": ["winforms", "dotnet", "desktop", "windows", "csharp"]
-    }
+	}
   ]
 }
