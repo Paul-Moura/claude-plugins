@@ -36,23 +36,29 @@ claude plugin install toolbox@solobitcrafter-toolbox
 ```
 claude-plugins/
 ├── .claude-plugin/
-│   ├── marketplace.json    # Marketplace catalog
-│   └── plugin.json         # Plugin manifest
-├── agents/
-│   ├── code-reviewer.md
-│   ├── ui-expert.md
-│   ├── web-app-coder.md
-│   └── win-form-coder.md
-├── skills/
-│   └── skill-builder/
-│       └── SKILL.md
-├── commands/               # Coming soon
+│   └── marketplace.json        # Marketplace catalog
+├── plugins/
+│   └── toolbox/
+│       ├── .claude-plugin/
+│       │   └── plugin.json     # Plugin manifest
+│       ├── agents/
+│       │   ├── code-reviewer.md
+│       │   ├── ui-expert.md
+│       │   ├── web-app-coder.md
+│       │   └── win-form-coder.md
+│       └── skills/
+│           └── skill-builder/
+│               └── SKILL.md
 └── README.md
 ```
 
+## Adding a Plugin
+
+Create a new folder under `plugins/<plugin-name>/` with its own `.claude-plugin/plugin.json` manifest. Then add an entry to the root `marketplace.json`.
+
 ## Adding a Skill
 
-Each skill lives in `skills/<skill-name>/SKILL.md`:
+Each skill lives in `plugins/<plugin-name>/skills/<skill-name>/SKILL.md`:
 
 ```yaml
 ---
@@ -69,7 +75,7 @@ Instructions for how Claude should use this skill.
 
 ## Adding an Agent
 
-Each agent lives in `agents/<agent-name>.md`:
+Each agent lives in `plugins/<plugin-name>/agents/<agent-name>.md`:
 
 ```markdown
 ---
