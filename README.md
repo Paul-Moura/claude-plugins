@@ -1,6 +1,6 @@
-# Claude Toolbox
+# SoloBitCrafter Toolbox
 
-A collection of custom Claude Code skills and agents by Paul Moura.
+A collection of custom Claude Code skills and agents by Paul-Jason Moura.
 
 ## Installation
 
@@ -10,10 +10,10 @@ Add this marketplace to Claude Code:
 /plugin marketplace add Paul-Moura/claude-plugins
 ```
 
-Then install the plugin:
+Then install the toolbox plugin via the `/plugin` menu, or:
 
 ```
-/plugin install claude-toolbox@<plugin-name>
+claude plugin install toolbox@solobitcrafter-toolbox
 ```
 
 ## Available Skills
@@ -36,23 +36,17 @@ Then install the plugin:
 ```
 claude-plugins/
 ├── .claude-plugin/
-│   └── marketplace.json    # Marketplace catalog
+│   ├── marketplace.json    # Marketplace catalog
+│   └── plugin.json         # Plugin manifest
+├── agents/
+│   ├── code-reviewer.md
+│   ├── ui-expert.md
+│   ├── web-app-coder.md
+│   └── win-form-coder.md
 ├── skills/
 │   └── skill-builder/
 │       └── SKILL.md
-├── plugins/
-│   ├── code-reviewer/
-│   │   ├── .claude-plugin/plugin.json
-│   │   └── agents/code-reviewer.md
-│   ├── ui-expert/
-│   │   ├── .claude-plugin/plugin.json
-│   │   └── agents/ui-expert.md
-│   ├── web-app-coder/
-│   │   ├── .claude-plugin/plugin.json
-│   │   └── agents/web-app-coder.md
-│   └── win-form-coder/
-│       ├── .claude-plugin/plugin.json
-│       └── agents/win-form-coder.md
+├── commands/               # Coming soon
 └── README.md
 ```
 
@@ -75,7 +69,7 @@ Instructions for how Claude should use this skill.
 
 ## Adding an Agent
 
-Each agent lives in `plugins/<plugin-name>/agents/<agent-name>.md`:
+Each agent lives in `agents/<agent-name>.md`:
 
 ```markdown
 ---
