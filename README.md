@@ -1,4 +1,4 @@
-# Claude Skills Marketplace
+# Claude Toolbox
 
 A collection of custom Claude Code skills and agents by Paul Moura.
 
@@ -7,13 +7,13 @@ A collection of custom Claude Code skills and agents by Paul Moura.
 Add this marketplace to Claude Code:
 
 ```
-/plugin marketplace add Paul-Moura/claude-skills
+/plugin marketplace add Paul-Moura/claude-plugins
 ```
 
 Then install the plugin:
 
 ```
-/plugin install paul-moura-skills@paul-moura-skills
+/plugin install claude-toolbox@<plugin-name>
 ```
 
 ## Available Skills
@@ -34,18 +34,25 @@ Then install the plugin:
 ## Repository Structure
 
 ```
-claude-skills/
+claude-plugins/
 ├── .claude-plugin/
-│   ├── marketplace.json    # Marketplace catalog
-│   └── plugin.json         # Plugin configuration
+│   └── marketplace.json    # Marketplace catalog
 ├── skills/
 │   └── skill-builder/
 │       └── SKILL.md
-├── agents/
-│   ├── code-reviewer.md
-│   ├── ui-expert.md
-│   ├── web-app-coder.md
-│   └── win-form-coder.md
+├── plugins/
+│   ├── code-reviewer/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── agents/code-reviewer.md
+│   ├── ui-expert/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── agents/ui-expert.md
+│   ├── web-app-coder/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── agents/web-app-coder.md
+│   └── win-form-coder/
+│       ├── .claude-plugin/plugin.json
+│       └── agents/win-form-coder.md
 └── README.md
 ```
 
@@ -68,7 +75,7 @@ Instructions for how Claude should use this skill.
 
 ## Adding an Agent
 
-Each agent lives in `agents/<agent-name>.md`:
+Each agent lives in `plugins/<plugin-name>/agents/<agent-name>.md`:
 
 ```markdown
 ---
