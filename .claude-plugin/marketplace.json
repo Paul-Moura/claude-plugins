@@ -10,6 +10,13 @@
     "pluginRoot": "./"
   },
   "plugins": [
+	{
+		"name": "toolbox",
+		"source": "./",
+		"description": "Skills and commands for prompt engineering, MCP servers, subagents, hooks, and productivity workflows",
+		"version": "1.0.0",
+		"strict": true
+	},
     {
       "name": "skill-builder",
       "source": "./skills/skill-builder",

@@ -1,7 +1,24 @@
 {
   "name": "paul-moura-skills",
-  "description": "A collection of custom Claude Code skills and agents",
+  "description": "Skills and commands for prompt engineering, MCP servers, subagents, hooks, and productivity workflows",
   "version": "1.0.0",
+  "author": {
+	"name": "Jason Moura",
+	"email": "paul.j.moura@gmail.com"
+  },
+  "homepage": "https://github.com/Paul-Moura/claude-plugins",
+  "repository": "https://github.com/Paul-Moura/claude-plugins",
+  "license": "MIT",
   "agents": "./agents/",
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "keywords": [
+	"skills",
+    "prompts",
+    "mcp-servers",
+    "subagents",
+    "hooks",
+    "slash-commands",
+    "prompt-engineering",
+    "meta-prompting"
+  ]
 }
