@@ -1,0 +1,9 @@
+{
+  "name": "web-app-coder",
+  "description": "Writes production-quality web application code with focus on security and performance",
+  "version": "1.0.0",
+  "author": {
+    "name": "Paul Moura",
+    "email": "pfoJPM@paragonfilms.com"
+  }
+}
