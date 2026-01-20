@@ -11,10 +11,13 @@
   "plugins": [
 	{
 		"name": "toolbox",
-		"source": "./",
+		"source": "./plugins/toolbox",
 		"description": "Skills and commands for prompt engineering, MCP servers, subagents, hooks, and productivity workflows",
 		"version": "1.0.0",
-		"strict": true
+		"author": {
+			"name": "Paul-Jason Moura",
+			"email": "paul.j.moura@gmail.com"
+		}
 	}
   ]
 }
