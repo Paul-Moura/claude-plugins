@@ -19,7 +19,13 @@
     "prompt-engineering",
     "meta-prompting"
   ],
-  "agents": "./agents/",
-  "skills": "./skills/",
-  "commands": "./commands/"
+  "agents": [
+    "./agents/code-reviewer.md",
+    "./agents/ui-expert.md",
+    "./agents/web-app-coder.md",
+    "./agents/win-form-coder.md"
+  ],
+  "skills": [
+    "./skills/skill-builder"
+  ]
 }
