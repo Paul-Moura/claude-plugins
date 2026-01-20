@@ -20,7 +20,7 @@
     },
     {
       "name": "code-reviewer",
-      "source": "./agents/code-reviewer.md",
+      "source": "./agents/code-reviewer/agent.md",
       "description": "Thorough code review for security, performance, best practices, modularity, and maintainability",
       "version": "1.0.0",
       "category": "development",
@@ -28,7 +28,7 @@
     },
     {
       "name": "ui-expert",
-      "source": "./agents/ui-expert.md",
+      "source": "./agents/ui-expert/agent.md",
       "description": "Reviews and improves UI/UX for design consistency, minimalism, and responsive design",
       "version": "1.0.0",
       "category": "design",
@@ -36,7 +36,7 @@
     },
     {
       "name": "web-app-coder",
-      "source": "./agents/web-app-coder.md",
+      "source": "./agents/web-app-coder/agent.md",
       "description": "Writes production-quality web application code with focus on security and performance",
       "version": "1.0.0",
       "category": "development",
@@ -44,7 +44,7 @@
     },
     {
       "name": "win-form-coder",
-      "source": "./agents/win-form-coder.md",
+      "source": "./agents/win-form-coder/agent.md",
       "description": "Creates and enhances Windows Forms applications in .NET with enterprise-grade quality",
       "version": "1.0.0",
       "category": "development",
