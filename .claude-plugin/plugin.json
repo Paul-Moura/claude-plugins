@@ -9,8 +9,6 @@
   "homepage": "https://github.com/Paul-Moura/claude-plugins",
   "repository": "https://github.com/Paul-Moura/claude-plugins",
   "license": "MIT",
-  "agents": "./agents/",
-  "skills": "./skills/",
   "keywords": [
 	"skills",
     "prompts",
