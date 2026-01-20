@@ -18,5 +18,8 @@
     "slash-commands",
     "prompt-engineering",
     "meta-prompting"
-  ]
+  ],
+  "agents": "./agents/",
+  "skills": "./skills/",
+  "commands": "./commands/"
 }
