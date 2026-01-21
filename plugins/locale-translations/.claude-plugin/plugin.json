@@ -1,0 +1,12 @@
+{
+  "name": "locale-translations",
+  "description": "MCP server, skill, and agent for managing locale translations via REST API",
+  "version": "1.0.0",
+  "author": {
+    "name": "Paul-Jason Moura",
+    "email": "paul.j.moura@gmail.com"
+  },
+  "homepage": "https://github.com/Paul-Moura/claude-plugins/plugins/locale-translations",
+  "repository": "https://github.com/Paul-Moura/claude-plugins",
+  "license": "MIT"
+}

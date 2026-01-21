@@ -1,0 +1,25 @@
+{
+  "name": "locale-translations-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for managing locale translations via REST API",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "author": {
+    "name": "Paul-Jason Moura",
+    "email": "paul.j.moura@gmail.com"
+  },
+  "license": "MIT"
+}
