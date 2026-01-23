@@ -55,28 +55,46 @@ npm run build
 
 #### 3. Configure the MCP Server
 
-Add the MCP server configuration to your `~/.claude.json` file:
+**IMPORTANT:** Configure at the **user level** (not project level) so the MCP server is available in all projects.
+
+**Option A: Using the CLI (Recommended)**
+
+```bash
+claude mcp add locale-translations --scope user -e LOCALE_API_BASE_URL=https://localhost:5001/api/locale -e NODE_TLS_REJECT_UNAUTHORIZED=0 -- node "C:/Users/YOUR_USERNAME/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/mcp-server/dist/index.js"
+```
+
+**Option B: Edit `~/.claude.json` directly**
+
+Add the `mcpServers` section at the **root level** of the file (NOT inside a `projects` entry):
 
 ```json
 {
   "mcpServers": {
     "locale-translations": {
       "command": "node",
-      "args": ["C:/Users/YOUR_USERNAME/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/1.0.0/mcp-server/dist/index.js"],
+      "args": ["C:/Users/YOUR_USERNAME/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/mcp-server/dist/index.js"],
       "env": {
-        "LOCALE_API_BASE_URL": "http://localhost:5000/api/locale",
-        "LOCALE_API_KEY": "your-api-key-if-required"
+        "LOCALE_API_BASE_URL": "https://localhost:5001/api/locale",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
       }
     }
   }
 }
 ```
 
-**Note:** Replace `YOUR_USERNAME` with your actual username, and adjust the path separator for your OS.
+**Configuration Notes:**
+- Replace `YOUR_USERNAME` with your actual username
+- Adjust path separators for your OS (use `/` on Mac/Linux, `/` or `\\` on Windows)
+- For HTTPS with self-signed certificates (local development), set `NODE_TLS_REJECT_UNAUTHORIZED` to `"0"`
+- For production APIs, remove `NODE_TLS_REJECT_UNAUTHORIZED` and use proper certificates
+
+**User-level vs Project-level:**
+- **User-level** (`--scope user` or root of `~/.claude.json`): MCP server available in ALL projects
+- **Project-level** (inside a `projects` entry): MCP server only available in that specific project
 
 #### 4. Restart Claude Code
 
-Restart Claude Code or run `/mcp restart locale-translations` to load the MCP server.
+**You must fully restart Claude Code** (close and reopen the terminal) for the new MCP configuration to take effect. Simply running `/mcp` will reconnect but may not reload environment variables.
 
 ### Environment Variables
 

@@ -38,7 +38,10 @@ After build completes successfully:
 ```
 Rebuild complete!
 
-Please restart the MCP server to use the updated version:
-- Run: /mcp restart locale-translations
-- Or restart Claude Code
+To use the updated version, you must FULLY RESTART Claude Code:
+- Close the terminal completely
+- Reopen Claude Code
+
+NOTE: Simply running `/mcp restart locale-translations` will reconnect but may NOT
+reload environment variables or pick up code changes. A full restart is required.
 ```
