@@ -17,7 +17,7 @@ Find the MCP server path. Check these locations in order:
 
 1. **Marketplace cache**:
    ```
-   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/*/mcp-server/package.json
+   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server/package.json
    ```
 
 2. **Development** (if not found in cache):
@@ -31,9 +31,8 @@ Use Glob to check if `{MCP_SERVER_PATH}/dist/index.js` exists.
 
 **If dist/index.js does NOT exist:**
 
-Use the Bash tool to execute the setup script:
-- On Windows: `& "{MCP_SERVER_PATH}\setup.bat"`
-- On Unix/Mac: `bash "{MCP_SERVER_PATH}/setup.sh"`
+Use the Bash tool to build the MCP server:
+- Run: `cd "{MCP_SERVER_PATH}" && npm install && npm run build`
 
 Wait for the build to complete before proceeding.
 

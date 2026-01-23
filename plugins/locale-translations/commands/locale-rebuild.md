@@ -5,7 +5,7 @@ description: Rebuild the locale-translations MCP server (use after updates)
 
 # Locale Rebuild Command
 
-Rebuild the locale-translations MCP server. Use this after the plugin has been updated to recompile the TypeScript server.
+Rebuild the locale-translations MCP server. Use this after the MCP server plugin has been updated to recompile the TypeScript server.
 
 ## Execution Steps
 
@@ -15,7 +15,7 @@ Find the MCP server path. Check these locations in order:
 
 1. **Marketplace cache**:
    ```
-   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/*/mcp-server/package.json
+   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server/package.json
    ```
 
 2. **Development** (if not found in cache):
@@ -26,8 +26,8 @@ Use the Glob tool to find the path. Store it as `MCP_SERVER_PATH`.
 ### Step 2: Run Build
 
 Use the Bash tool to execute the setup script (this will reinstall dependencies and rebuild):
-- On Windows: `& "{MCP_SERVER_PATH}\setup.bat"`
-- On Unix/Mac: `bash "{MCP_SERVER_PATH}/setup.sh"`
+- On Windows: `cd "{MCP_SERVER_PATH}" && npm install && npm run build`
+- On Unix/Mac: `cd "{MCP_SERVER_PATH}" && npm install && npm run build`
 
 Wait for the build to complete before proceeding.
 
