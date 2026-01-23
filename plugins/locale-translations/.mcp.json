@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "locale-translations": {
+      "command": "node",
+      "args": ["./plugins/locale-translations/mcp-server/dist/index.js"],
+      "env": {
+        "LOCALE_API_BASE_URL": "http://localhost:5000/api/locale"
+      }
+    }
+  }
+}
