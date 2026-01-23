@@ -13,40 +13,56 @@ The locale-translations plugin enables:
 
 ## Installation
 
-### 1. Install the Plugin
+### Quick Setup (Recommended)
 
-Add the marketplace to Claude Code if you haven't already:
+1. **Add the marketplace** (if not already added):
+   ```
+   /plugin marketplace add Paul-Moura/claude-plugins
+   ```
+
+2. **Install the plugin**:
+   ```
+   /plugin install locale-translations@solobitcrafter-toolbox
+   ```
+
+3. **Run the setup skill**:
+   ```
+   /locale-setup
+   ```
+
+The setup skill will guide you through building the MCP server, configuring the API connection, and testing everything works.
+
+### Manual Setup
+
+If you prefer to configure manually, follow these steps:
+
+#### 1. Install the Plugin
 
 ```
 /plugin marketplace add Paul-Moura/claude-plugins
+/plugin install locale-translations@solobitcrafter-toolbox
 ```
 
-Then install the plugin:
+#### 2. Build the MCP Server
 
-```
-claude plugin install locale-translations@solobitcrafter-toolbox
-```
-
-### 2. Build the MCP Server
+Navigate to the installed plugin location and build:
 
 ```bash
-cd plugins/locale-translations/mcp-server
+cd ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/1.0.0/mcp-server
 npm install
 npm run build
 ```
 
-### 3. Configure the MCP Server
+#### 3. Configure the MCP Server
 
-Add the MCP server to your Claude Code configuration.
-
-**For Claude Desktop App** (`claude_desktop_config.json`):
+Add the MCP server configuration to your `~/.claude.json` file:
 
 ```json
 {
   "mcpServers": {
     "locale-translations": {
       "command": "node",
-      "args": ["C:/path/to/claude-plugins/plugins/locale-translations/mcp-server/dist/index.js"],
+      "args": ["C:/Users/YOUR_USERNAME/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/1.0.0/mcp-server/dist/index.js"],
       "env": {
         "LOCALE_API_BASE_URL": "http://localhost:5000/api/locale",
         "LOCALE_API_KEY": "your-api-key-if-required"
@@ -56,21 +72,11 @@ Add the MCP server to your Claude Code configuration.
 }
 ```
 
-**For Claude Code CLI** (`.claude/settings.local.json` or project settings):
+**Note:** Replace `YOUR_USERNAME` with your actual username, and adjust the path separator for your OS.
 
-```json
-{
-  "mcpServers": {
-    "locale-translations": {
-      "command": "node",
-      "args": ["./plugins/locale-translations/mcp-server/dist/index.js"],
-      "env": {
-        "LOCALE_API_BASE_URL": "http://localhost:5000/api/locale"
-      }
-    }
-  }
-}
-```
+#### 4. Restart Claude Code
+
+Restart Claude Code or run `/mcp restart locale-translations` to load the MCP server.
 
 ### Environment Variables
 
@@ -78,6 +84,7 @@ Add the MCP server to your Claude Code configuration.
 |----------|----------|-------------|
 | `LOCALE_API_BASE_URL` | Yes | Base URL of the locale REST API (e.g., `http://localhost:5000/api/locale`) |
 | `LOCALE_API_KEY` | No | API key for authentication if the API requires it |
+| `NODE_TLS_REJECT_UNAUTHORIZED` | No | Set to `"0"` to disable TLS verification for self-signed certificates |
 
 ## Available MCP Tools
 
@@ -148,6 +155,22 @@ The plugin provides 7 MCP tools for managing translations:
 | `component` | Yes | Component path (e.g., `"settings/profile"`) |
 | `category` | Yes | Category: BUTTONS, LABELS, MESSAGES, VALIDATIONS, ERRORS, TITLES, PLACEHOLDERS, HINTS, TOOLTIPS, CONFIRMATIONS, NOTIFICATIONS, NAVIGATION, ACTIONS, STATUS |
 | `purpose` | Yes | Brief description (e.g., `"submit button"`) |
+
+## Skill: Locale Setup
+
+The **locale-setup** skill automates the MCP server setup process.
+
+**Trigger:** `/locale-setup`
+
+**What it does:**
+1. Detects the installed plugin location
+2. Checks if the MCP server is built
+3. Guides you through building if needed
+4. Asks for your API URL and authentication settings
+5. Configures the MCP server in your Claude settings
+6. Tests the connection
+
+Use this skill for initial setup or when reconfiguring the API connection.
 
 ## Skill: Locale Manager
 
