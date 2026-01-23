@@ -4,7 +4,8 @@
       "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"],
       "env": {
-        "LOCALE_API_BASE_URL": "http://localhost:5000/api/locale"
+        "LOCALE_API_BASE_URL": "https://localhost:5001/api/locale",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
       }
     }
   }

@@ -67,8 +67,8 @@ Use AskUserQuestion to gather configuration:
 - Question: "What is the base URL for your locale translation API?"
 - Header: "API URL"
 - Options:
-  - "http://localhost:5000/api/locale" (Local development)
-  - "https://localhost:5001/api/locale" (Local HTTPS)
+  - "https://localhost:5001/api/locale (Recommended)" (Local HTTPS with self-signed cert)
+  - "http://localhost:5000/api/locale" (Local HTTP - no TLS)
 
 **Question 2: TLS Verification** (only if URL starts with https://localhost)
 - Question: "Disable TLS certificate verification? (Required for self-signed certificates)"
