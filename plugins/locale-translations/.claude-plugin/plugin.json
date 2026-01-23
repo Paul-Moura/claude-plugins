@@ -1,7 +1,7 @@
 {
   "name": "locale-translations",
   "description": "MCP server, skill, and agent for managing locale translations via REST API",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Paul-Jason Moura",
     "email": "paul.j.moura@gmail.com"
