@@ -25,10 +25,11 @@ Use the Glob tool to find the path. Store it as `MCP_SERVER_PATH`.
 
 ### Step 2: Run Build
 
-Run the setup script (this will reinstall dependencies and rebuild):
+Use the Bash tool to execute the setup script (this will reinstall dependencies and rebuild):
+- On Windows: `& "{MCP_SERVER_PATH}\setup.bat"`
+- On Unix/Mac: `bash "{MCP_SERVER_PATH}/setup.sh"`
 
-- Windows: `"{MCP_SERVER_PATH}\setup.bat"`
-- Unix: `bash "{MCP_SERVER_PATH}/setup.sh"`
+Wait for the build to complete before proceeding.
 
 ### Step 3: Restart MCP Server
 

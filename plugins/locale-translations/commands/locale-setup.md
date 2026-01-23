@@ -27,17 +27,19 @@ Use the Glob tool to find the path. Store it as `MCP_SERVER_PATH`.
 
 ### Step 2: Check and Build if Needed
 
-Check if `{MCP_SERVER_PATH}/dist/index.js` exists.
+Use Glob to check if `{MCP_SERVER_PATH}/dist/index.js` exists.
 
 **If dist/index.js does NOT exist:**
 
-Run the setup script:
-- Windows: `"{MCP_SERVER_PATH}\setup.bat"`
-- Unix: `bash "{MCP_SERVER_PATH}/setup.sh"`
+Use the Bash tool to execute the setup script:
+- On Windows: `& "{MCP_SERVER_PATH}\setup.bat"`
+- On Unix/Mac: `bash "{MCP_SERVER_PATH}/setup.sh"`
+
+Wait for the build to complete before proceeding.
 
 **If dist/index.js already exists:**
 
-Output: "MCP server already built. Skipping build step."
+Tell the user: "MCP server already built. Skipping build step."
 
 Proceed to Step 3.
 
