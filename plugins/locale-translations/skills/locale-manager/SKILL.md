@@ -27,25 +27,14 @@ The skill integrates with seven MCP tools:
 
 ## MCP Server Dependency
 
-This skill requires the locale MCP server to be configured and running. The server must be registered in the Claude configuration with access to the locale REST API.
+This skill requires the locale MCP server to be configured and running.
 
-Required configuration in `claude_desktop_config.json` or project settings:
+**First-time setup:** Run `/locale-setup` to configure the MCP server. This will:
+- Prompt you to choose between production API or local development
+- Configure the API URL and authentication settings
+- Build and register the MCP server
 
-```json
-{
-  "mcpServers": {
-    "locale-translations": {
-      "command": "node",
-      "args": ["path/to/locale-mcp-server/dist/index.js"],
-      "env": {
-        "LOCALE_API_BASE_URL": "http://localhost:5000/api/locale"
-      }
-    }
-  }
-}
-```
-
-Verify the server is operational by testing `locale_search` with a simple query before proceeding with other operations.
+**Verify connection:** Test with `locale_search` using a simple query before proceeding with other operations.
 
 ## Implementation Workflow
 

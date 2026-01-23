@@ -62,18 +62,24 @@ Proceed to Step 4.
 
 Use AskUserQuestion to gather configuration:
 
-**Question 1: API Base URL**
-- Question: "What is the base URL for your locale translation API?"
-- Header: "API URL"
+**Question 1: API Environment**
+- Question: "Which locale translation API do you want to connect to?"
+- Header: "API"
 - Options:
-  - "https://localhost:5001/api/locale (Recommended)" (Local HTTPS with self-signed cert)
-  - "http://localhost:5000/api/locale" (Local HTTP - no TLS)
+  - "Production API (Recommended)" - Connect to the production locale translation service
+  - "Local Development (HTTPS)" - localhost:5001 with self-signed certificate
+  - "Local Development (HTTP)" - localhost:5000 without TLS
 
-**Question 2: TLS Verification** (only if URL starts with https://localhost)
+**If Production API selected:**
+Ask a follow-up question for the production URL:
+- Question: "Enter your production API base URL (e.g., https://api.yourcompany.com/api/locale)"
+- This requires the "Other" option - let user type their URL
+
+**Question 2: TLS Verification** (only if "Local Development (HTTPS)" was selected)
 - Question: "Disable TLS certificate verification? (Required for self-signed certificates)"
 - Header: "TLS"
 - Options:
-  - "Yes - Disable verification"
+  - "Yes - Disable verification (Recommended)" - Required for local self-signed certs
   - "No - Keep verification enabled"
 
 **Question 3: API Key**
@@ -84,6 +90,11 @@ Use AskUserQuestion to gather configuration:
   - "Yes, I need to provide an API key"
 
 If API key needed, ask for the key value.
+
+**Determine the API URL based on selection:**
+- Production API: Use the URL provided by the user
+- Local Development (HTTPS): `https://localhost:5001/api/locale`
+- Local Development (HTTP): `http://localhost:5000/api/locale`
 
 **Update ~/.claude.json:**
 

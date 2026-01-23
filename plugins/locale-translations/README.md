@@ -164,11 +164,15 @@ The **locale-setup** skill automates the MCP server setup process.
 
 **What it does:**
 1. Detects the installed plugin location
-2. Checks if the MCP server is built
-3. Guides you through building if needed
-4. Asks for your API URL and authentication settings
-5. Configures the MCP server in your Claude settings
-6. Tests the connection
+2. Checks if the MCP server is built (builds if needed)
+3. **Prompts for API environment:**
+   - Production API (for deployed services)
+   - Local Development HTTPS (localhost:5001 with self-signed cert)
+   - Local Development HTTP (localhost:5000)
+4. Configures TLS settings for self-signed certificates
+5. Asks for API key if required
+6. Configures the MCP server in your Claude settings
+7. Tests the connection
 
 Use this skill for initial setup or when reconfiguring the API connection.
 
