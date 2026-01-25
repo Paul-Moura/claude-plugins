@@ -1,0 +1,12 @@
+{
+  "name": "minecraft-mod-agents",
+  "description": "Multi-agent system for professional Minecraft mod development with specialized Architect, Coder, and Reviewer agents",
+  "version": "1.0.0",
+  "author": {
+    "name": "Paul-Jason Moura",
+    "email": "paul.j.moura@gmail.com"
+  },
+  "homepage": "https://github.com/Paul-Moura/claude-plugins/plugins/minecraft-mod-agents",
+  "repository": "https://github.com/Paul-Moura/claude-plugins",
+  "license": "MIT"
+}

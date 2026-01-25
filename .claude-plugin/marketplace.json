@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "A collection of custom Claude Code skills and agents",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
 	{
@@ -34,6 +34,16 @@
 		"source": "./plugins/locale-translations",
 		"description": "Skills, commands, and agent for managing locale translations (requires locale-mcp-server)",
 		"version": "2.2.0",
+		"author": {
+			"name": "Paul-Jason Moura",
+			"email": "paul.j.moura@gmail.com"
+		}
+	},
+	{
+		"name": "minecraft-mod-agents",
+		"source": "./plugins/minecraft-mod-agents",
+		"description": "Multi-agent system for professional Minecraft mod development with specialized Architect, Coder, and Reviewer agents",
+		"version": "1.0.0",
 		"author": {
 			"name": "Paul-Jason Moura",
 			"email": "paul.j.moura@gmail.com"
