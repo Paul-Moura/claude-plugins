@@ -20,13 +20,27 @@ Execute these steps in order.
 
 ### Step 1: Find Installed Plugin
 
-Find the `locale-mcp-server` plugin in the marketplace cache:
+Find the `locale-mcp-server` plugin's built MCP server in the marketplace cache.
+
+**Use the Glob tool with this exact pattern:**
 
 ```
-Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server/dist/index.js
+{USER_HOME}/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server/dist/index.js
 ```
 
-Use the Glob tool to find the built MCP server. Extract the version directory path as `PLUGIN_PATH` (e.g., `~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/1.0.0`).
+Where `{USER_HOME}` is the user's home directory:
+- **Windows:** `C:/Users/{username}` (use forward slashes)
+- **macOS/Linux:** `/Users/{username}` or `/home/{username}`
+
+**Example Glob calls:**
+- Windows: `C:/Users/*/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server/dist/index.js`
+- Or use the current user's path directly from context
+
+The `*` wildcard matches any version number (e.g., `1.0.0`, `2.1.0`).
+
+**From the result**, extract `PLUGIN_PATH` as the directory containing `mcp-server/`:
+- If found: `C:/Users/pfojpm/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/1.0.0/mcp-server/dist/index.js`
+- Then `PLUGIN_PATH` = `C:/Users/pfojpm/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/1.0.0`
 
 **If not found:**
 ```
