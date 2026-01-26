@@ -56,16 +56,16 @@ npm run build
 
 #### 3. Configure the MCP Server
 
-The plugin includes a `.mcp.json` configuration file with localhost defaults. To configure for your API:
+The plugin includes a `.mcp.json` with localhost defaults. For production or custom APIs, configure at the **user level** in `~/.claude.json`:
 
-**Edit the plugin's `.mcp.json`** (located in the `locale-mcp-server` plugin directory):
+**Add to `~/.claude.json`** at the root level (not inside a project):
 
 ```json
 {
   "mcpServers": {
     "locale-translations": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"],
+      "args": ["C:/Users/YOUR_USER/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/1.0.0/mcp-server/dist/index.js"],
       "env": {
         "LOCALE_API_BASE_URL": "https://your-api-server.com/api/locale"
       }
@@ -75,15 +75,15 @@ The plugin includes a `.mcp.json` configuration file with localhost defaults. To
 ```
 
 **Configuration Notes:**
-- The `${CLAUDE_PLUGIN_ROOT}` variable automatically resolves to the plugin's installation path
+- Replace `YOUR_USER` and version number with your actual values
 - For HTTPS with self-signed certificates, add `"NODE_TLS_REJECT_UNAUTHORIZED": "0"` to the `env` object
 - For production APIs with proper certificates, omit `NODE_TLS_REJECT_UNAUTHORIZED`
 
-**Why plugin-level configuration?**
-- Configuration stays with the plugin (no need to edit `~/.claude.json`)
-- Uses portable path variables
-- Available in all projects when the plugin is installed
-- Each user customizes their installed copy
+**Why user-level configuration?**
+- Keeps sensitive URLs and API keys out of the plugin repo
+- Plugin's `.mcp.json` stays with safe localhost defaults
+- User config takes precedence over plugin defaults
+- Available across all projects
 
 #### 4. Restart Claude Code
 
