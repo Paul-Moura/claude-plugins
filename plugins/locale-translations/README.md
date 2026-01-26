@@ -40,42 +40,34 @@ If you prefer to configure manually, follow these steps:
 
 ```
 /plugin marketplace add Paul-Moura/claude-plugins
+/plugin install locale-mcp-server@solobitcrafter-toolbox
 /plugin install locale-translations@solobitcrafter-toolbox
 ```
 
 #### 2. Build the MCP Server
 
-Navigate to the installed plugin location and build:
+Navigate to the installed `locale-mcp-server` plugin location and build:
 
 ```bash
-cd ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/1.0.0/mcp-server
+cd ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server
 npm install
 npm run build
 ```
 
 #### 3. Configure the MCP Server
 
-**IMPORTANT:** Configure at the **user level** (not project level) so the MCP server is available in all projects.
+The plugin includes a `.mcp.json` configuration file with localhost defaults. To configure for your API:
 
-**Option A: Using the CLI (Recommended)**
-
-```bash
-claude mcp add locale-translations --scope user -e LOCALE_API_BASE_URL=https://localhost:5001/api/locale -e NODE_TLS_REJECT_UNAUTHORIZED=0 -- node "C:/Users/YOUR_USERNAME/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/mcp-server/dist/index.js"
-```
-
-**Option B: Edit `~/.claude.json` directly**
-
-Add the `mcpServers` section at the **root level** of the file (NOT inside a `projects` entry):
+**Edit the plugin's `.mcp.json`** (located in the `locale-mcp-server` plugin directory):
 
 ```json
 {
   "mcpServers": {
     "locale-translations": {
       "command": "node",
-      "args": ["C:/Users/YOUR_USERNAME/.claude/plugins/cache/solobitcrafter-toolbox/locale-translations/mcp-server/dist/index.js"],
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"],
       "env": {
-        "LOCALE_API_BASE_URL": "https://localhost:5001/api/locale",
-        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+        "LOCALE_API_BASE_URL": "https://your-api-server.com/api/locale"
       }
     }
   }
@@ -83,14 +75,15 @@ Add the `mcpServers` section at the **root level** of the file (NOT inside a `pr
 ```
 
 **Configuration Notes:**
-- Replace `YOUR_USERNAME` with your actual username
-- Adjust path separators for your OS (use `/` on Mac/Linux, `/` or `\\` on Windows)
-- For HTTPS with self-signed certificates (local development), set `NODE_TLS_REJECT_UNAUTHORIZED` to `"0"`
-- For production APIs, remove `NODE_TLS_REJECT_UNAUTHORIZED` and use proper certificates
+- The `${CLAUDE_PLUGIN_ROOT}` variable automatically resolves to the plugin's installation path
+- For HTTPS with self-signed certificates, add `"NODE_TLS_REJECT_UNAUTHORIZED": "0"` to the `env` object
+- For production APIs with proper certificates, omit `NODE_TLS_REJECT_UNAUTHORIZED`
 
-**User-level vs Project-level:**
-- **User-level** (`--scope user` or root of `~/.claude.json`): MCP server available in ALL projects
-- **Project-level** (inside a `projects` entry): MCP server only available in that specific project
+**Why plugin-level configuration?**
+- Configuration stays with the plugin (no need to edit `~/.claude.json`)
+- Uses portable path variables
+- Available in all projects when the plugin is installed
+- Each user customizes their installed copy
 
 #### 4. Restart Claude Code
 

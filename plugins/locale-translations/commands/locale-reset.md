@@ -5,72 +5,86 @@ description: Remove locale-translations MCP server configuration for fresh setup
 
 # Locale Reset Command
 
-Remove the locale-translations MCP server configuration from BOTH user-level and project-level settings to allow a fresh setup. This is useful for testing the setup process, reconfiguring from scratch, or fixing misconfiguration issues.
+Reset the locale-translations MCP server configuration to defaults. This is useful for testing the setup process, reconfiguring from scratch, or fixing configuration issues.
 
-## Configuration Locations
+## What This Command Does
 
-MCP servers can be configured at two levels in `~/.claude.json`:
-
-1. **User-level** (recommended): Root-level `mcpServers` object - available in ALL projects
-2. **Project-level**: Inside `projects["path/to/project"].mcpServers` - only available in that project
-
-This reset command clears BOTH locations to ensure a clean slate.
+1. Resets the plugin's `.mcp.json` to default settings (localhost:5001)
+2. Removes any legacy user-level config from `~/.claude.json` (if present)
+3. Removes any project-level disabled entries (if present)
 
 ## Execution Steps
 
-### Step 1: Read Current Configuration
+### Step 1: Detect Plugin Location
 
-Read `~/.claude.json` and check for `locale-translations` in BOTH locations:
+Find the `locale-mcp-server` plugin's `.mcp.json`:
 
-1. **User-level**: `mcpServers.locale-translations` (at root level)
-2. **Project-level**: `projects[*].mcpServers.locale-translations` (in any project entry)
+1. **Marketplace cache**:
+   ```
+   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/.mcp.json
+   ```
 
-**If not configured in either location:**
+2. **Development**:
+   ```
+   Pattern: ~/source/GitHub/claude-plugins/plugins/locale-mcp-server/.mcp.json
+   ```
 
-Tell the user: "No locale-translations configuration found at user-level or project-level. Nothing to reset."
+Use Glob to find the file. Store directory as `PLUGIN_ROOT`.
 
-Done.
+### Step 2: Reset Plugin Configuration
 
-**If configured in one or both locations:**
+Write the default configuration to `{PLUGIN_ROOT}/.mcp.json`:
 
-Report where it was found and proceed to Step 2.
+```json
+{
+  "mcpServers": {
+    "locale-translations": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"],
+      "env": {
+        "LOCALE_API_BASE_URL": "https://localhost:5001/api/locale",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      }
+    }
+  }
+}
+```
 
-### Step 2: Remove Configuration from User-Level
+### Step 3: Remove Legacy User-Level Config
 
-If `mcpServers.locale-translations` exists at the root level:
+Read `~/.claude.json` and check for `mcpServers.locale-translations` at the root level.
 
-Use the Edit tool to remove the `locale-translations` entry from the root `mcpServers` in `~/.claude.json`.
-
-Be careful to:
-- Only remove the `locale-translations` key, not other MCP servers
-- Preserve the rest of the file structure
-- Handle the case where `locale-translations` is the only entry (remove empty `mcpServers` object too)
-
-### Step 3: Remove Configuration from Project-Level
-
-Check ALL entries in `projects` object for `mcpServers.locale-translations`.
-
-For EACH project that has it configured:
-- Remove the `locale-translations` entry from that project's `mcpServers`
+**If found:**
+- Remove the `locale-translations` entry from root `mcpServers`
 - If `mcpServers` becomes empty, remove the empty object
+- Report: "Removed legacy user-level configuration"
 
-Report which project paths had configuration removed.
+**If not found:**
+- Report: "No legacy user-level configuration found"
 
-### Step 4: Confirm Reset
+### Step 4: Remove Project-Level Disabled Entries
+
+Check `~/.claude.json` for any `projects[*].disabledMcpServers` arrays containing "locale-translations".
+
+**For each project that has it:**
+- Remove "locale-translations" from the `disabledMcpServers` array
+- Report which project paths were updated
+
+### Step 5: Confirm Reset
 
 Tell the user:
 
 ```
-Configuration removed from ~/.claude.json:
-- User-level: [Removed / Not found]
-- Project-level: [List of project paths cleared, or "Not found"]
+Configuration reset complete:
 
-The plugin's default configuration (.mcp.json) will be used:
+Plugin .mcp.json: Reset to defaults
 - API URL: https://localhost:5001/api/locale
 - TLS verification: Disabled (for self-signed certs)
 
-To reconfigure with custom settings, run /locale-setup
-IMPORTANT: Use --scope user to configure at user-level (available in all projects)
+Legacy user-level config: [Removed / Not found]
+Project-level disabled entries: [List of cleared projects / Not found]
+
+To configure for a different API, run /locale-setup
 
 To apply changes, fully restart Claude Code (close and reopen terminal).
 ```

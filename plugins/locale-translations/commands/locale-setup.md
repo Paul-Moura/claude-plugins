@@ -7,14 +7,13 @@ description: Set up and configure the locale-translations MCP server
 
 Set up the locale-translations MCP server. This command is idempotent - safe to run multiple times.
 
-## IMPORTANT: Configuration Scope
+## Configuration Approach
 
-**Always configure at USER-LEVEL** so the MCP server is available in ALL projects.
-
-- **User-level** (CORRECT): Root-level `mcpServers` object in `~/.claude.json`
-- **Project-level** (AVOID): Inside `projects["path/to/project"].mcpServers` - only works in that one project
-
-This setup command configures at the USER-LEVEL by default.
+This command configures the **plugin's `.mcp.json`** file directly. This is the recommended approach because:
+- Configuration stays with the plugin
+- Uses `${CLAUDE_PLUGIN_ROOT}` variable for portable paths
+- No need for user-level overrides in `~/.claude.json`
+- Available in all projects when the plugin is installed
 
 ## Execution Steps
 
@@ -22,26 +21,41 @@ Execute these steps in order.
 
 ### Step 1: Detect Plugin Location
 
-Find the MCP server path. Check these locations in order:
+Find the `locale-mcp-server` plugin. Check these locations in order:
 
-1. **Marketplace cache**:
+1. **Marketplace cache** (installed via plugin system):
    ```
-   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/mcp-server/package.json
+   Pattern: ~/.claude/plugins/cache/solobitcrafter-toolbox/locale-mcp-server/*/.mcp.json
    ```
 
-2. **Development** (if not found in cache):
-   Check common development paths or ask the user.
+2. **Development** (local git repo):
+   ```
+   Pattern: ~/source/GitHub/claude-plugins/plugins/locale-mcp-server/.mcp.json
+   Or ask the user for the path.
+   ```
 
-Use the Glob tool to find the path. Store it as `MCP_SERVER_PATH`.
+Use the Glob tool to find the `.mcp.json` file. Store the directory as `PLUGIN_ROOT`.
+
+**If not found:**
+```
+The locale-mcp-server plugin is not installed.
+
+Install it first:
+1. Run: /plugin
+2. Search for "locale-mcp-server" from the solobitcrafter-toolbox marketplace
+3. Install the plugin
+4. Run /locale-setup again
+```
+Done.
 
 ### Step 2: Check and Build if Needed
 
-Use Glob to check if `{MCP_SERVER_PATH}/dist/index.js` exists.
+Use Glob to check if `{PLUGIN_ROOT}/mcp-server/dist/index.js` exists.
 
 **If dist/index.js does NOT exist:**
 
 Use the Bash tool to build the MCP server:
-- Run: `cd "{MCP_SERVER_PATH}" && npm install && npm run build`
+- Run: `cd "{PLUGIN_ROOT}/mcp-server" && npm install && npm run build`
 
 Wait for the build to complete before proceeding.
 
@@ -51,40 +65,42 @@ Tell the user: "MCP server already built. Skipping build step."
 
 Proceed to Step 3.
 
-### Step 3: Check Configuration
+### Step 3: Check for Legacy User-Level Config
 
-Read `~/.claude.json` and check for existing configuration at BOTH levels:
+Read `~/.claude.json` and check if `mcpServers.locale-translations` exists at the root level.
 
-1. **User-level** (correct): Root-level `mcpServers.locale-translations`
-2. **Project-level** (incorrect): Any `projects[*].mcpServers.locale-translations`
-
-**If configured at PROJECT-LEVEL only (inside a projects entry):**
+**If found:**
 
 Warn the user:
 ```
-WARNING: Found locale-translations configured at PROJECT-LEVEL only.
-This means it's only available in specific project(s), not globally.
+WARNING: Found legacy user-level MCP configuration in ~/.claude.json
 
-Recommendation: Reconfigure at USER-LEVEL so it's available in all projects.
+This is no longer needed - the plugin's .mcp.json handles configuration.
+Having both can cause confusion with duplicate entries in /mcp.
+
+Recommendation: Remove the user-level config.
 ```
 
-Ask: "Would you like to reconfigure at the USER-LEVEL (recommended)?"
-- If yes: First remove project-level config, then proceed to Step 4
-- If no: Skip to Step 5 (test connection)
+Ask: "Remove the legacy user-level configuration?"
+- If yes: Remove `mcpServers.locale-translations` from `~/.claude.json` (preserve other servers)
+- If no: Continue (user will have duplicate entries)
 
-**If configured at USER-LEVEL:**
+### Step 4: Read Current Plugin Configuration
 
-Output: "MCP server already configured at USER-LEVEL in ~/.claude.json (available in all projects)"
+Read `{PLUGIN_ROOT}/.mcp.json` to see current settings.
 
-Ask the user: "Would you like to reconfigure the API connection?"
-- If no: Skip to Step 5 (test connection)
-- If yes: Proceed to Step 4
+Show user:
+```
+Current configuration:
+- API URL: {current LOCALE_API_BASE_URL}
+- TLS verification: {disabled if NODE_TLS_REJECT_UNAUTHORIZED=0, otherwise enabled}
+```
 
-**If not configured at either level:**
+Ask: "Would you like to change the API connection settings?"
+- If no: Skip to Step 6 (test connection)
+- If yes: Proceed to Step 5
 
-Proceed to Step 4.
-
-### Step 4: Gather Configuration and Update
+### Step 5: Gather Configuration and Update Plugin
 
 Use AskUserQuestion to gather configuration:
 
@@ -101,12 +117,12 @@ Ask a follow-up question for the production URL:
 - Question: "Enter your production API base URL (e.g., https://api.yourcompany.com/api/locale)"
 - This requires the "Other" option - let user type their URL
 
-**Question 2: TLS Verification** (only if "Local Development (HTTPS)" was selected)
+**Question 2: TLS Verification** (ask for Production API and Local HTTPS)
 - Question: "Disable TLS certificate verification? (Required for self-signed certificates)"
 - Header: "TLS"
 - Options:
-  - "Yes - Disable verification (Recommended)" - Required for local self-signed certs
-  - "No - Keep verification enabled"
+  - "Yes - Disable verification" - Required for self-signed certs
+  - "No - Keep verification enabled (Recommended for production)" - Use proper certificates
 
 **Question 3: API Key**
 - Question: "Does your API require an API key?"
@@ -122,42 +138,34 @@ If API key needed, ask for the key value.
 - Local Development (HTTPS): `https://localhost:5001/api/locale`
 - Local Development (HTTP): `http://localhost:5000/api/locale`
 
-**Update ~/.claude.json at USER-LEVEL:**
+**Update the plugin's `.mcp.json`:**
 
-Read current file and update the ROOT-LEVEL `mcpServers` object (NOT inside any `projects` entry).
-
-**CRITICAL:** The `mcpServers` key MUST be at the root level of the JSON file, like this:
+Write the updated configuration to `{PLUGIN_ROOT}/.mcp.json`:
 
 ```json
 {
-  "numStartups": 32,
   "mcpServers": {
     "locale-translations": {
       "command": "node",
-      "args": ["{MCP_SERVER_PATH}/dist/index.js"],
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"],
       "env": {
         "LOCALE_API_BASE_URL": "{user_provided_url}"
       }
     }
-  },
-  "projects": { ... }
+  }
 }
 ```
-
-**DO NOT** put the configuration inside a `projects` entry - that makes it project-specific only.
 
 Add to env if applicable:
 - TLS disabled: `"NODE_TLS_REJECT_UNAUTHORIZED": "0"`
 - API key: `"LOCALE_API_KEY": "{user_provided_key}"`
 
-**Important:**
-- Use absolute path in args (e.g., `C:/Users/.../dist/index.js`)
-- Preserve any existing MCP servers in `mcpServers`
+**Important:** Always use `${CLAUDE_PLUGIN_ROOT}` in args - this variable resolves to the plugin's installation path automatically.
 
 After saving, inform user:
 
 ```
-Configuration saved to USER-LEVEL settings (available in all projects).
+Configuration saved to plugin's .mcp.json
 
 IMPORTANT: You must FULLY RESTART Claude Code for changes to take effect:
 - Close the terminal completely
@@ -171,7 +179,7 @@ Tell me when you've restarted and are ready to test the connection.
 
 Wait for user confirmation.
 
-### Step 5: Test Connection
+### Step 6: Test Connection
 
 Call `mcp__locale-translations__locale_search` with query: "test"
 
