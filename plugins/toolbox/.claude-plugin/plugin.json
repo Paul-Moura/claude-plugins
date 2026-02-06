@@ -1,7 +1,7 @@
 {
   "name": "toolbox",
-  "description": "Skills and commands for prompt engineering, MCP servers, subagents, hooks, and productivity workflows",
-  "version": "1.0.0",
+  "description": "Agents and skills for project workflow pipelines, debugging, research, and productivity workflows",
+  "version": "2.0.0",
   "author": {
 	"name": "Paul-Jason Moura",
 	"email": "paul.j.moura@gmail.com"
